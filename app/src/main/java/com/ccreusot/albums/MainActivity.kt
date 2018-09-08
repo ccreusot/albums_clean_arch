@@ -3,6 +3,7 @@ package com.ccreusot.albums
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.ccreusot.albums.adapters.AlbumsAdapter
 import com.ccreusot.albums.interactors.AlbumsInteractor
 import com.ccreusot.albums.presentations.AlbumsPresenterImpl
@@ -59,5 +60,11 @@ class MainActivity : AppCompatActivity(), AlbumsView {
 
     override fun displayAlbums(albumViewModels: List<AlbumViewModel>) {
         activityMainContentViewFlipper.displayedChild = DISPLAY_LIST
+        (activityMainAlbumRecyclerView.adapter as AlbumsAdapter).albumViewModelList = albumViewModels
+        (activityMainAlbumRecyclerView.adapter as AlbumsAdapter).onClick = this::onClickItem
+    }
+
+    fun onClickItem(position : Int) {
+        // TODO
     }
 }
