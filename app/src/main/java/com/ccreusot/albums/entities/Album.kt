@@ -1,3 +1,3 @@
 package com.ccreusot.albums.entities
 
-data class Album(val id: Long, val photos: List<Photo>)
+data class Album(val id: Long, val photos: MutableList<Photo>)

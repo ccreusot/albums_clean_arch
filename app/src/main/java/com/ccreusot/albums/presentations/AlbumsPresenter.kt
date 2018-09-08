@@ -1,4 +1,4 @@
-package com.ccreusot.albums.presenters
+package com.ccreusot.albums.presentations
 
 import com.ccreusot.albums.entities.Album
 

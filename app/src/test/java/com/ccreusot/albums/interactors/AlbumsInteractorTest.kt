@@ -2,9 +2,8 @@ package com.ccreusot.albums.interactors
 
 import com.ccreusot.albums.entities.Album
 import com.ccreusot.albums.entities.Photo
-import com.ccreusot.albums.presenters.AlbumsPresenter
+import com.ccreusot.albums.presentations.AlbumsPresenter
 import com.ccreusot.albums.repositories.AlbumsRepository
-import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.*
 
@@ -36,8 +35,8 @@ class AlbumsInteractorTest {
     @Test
     fun test_fetchAlbums() {
         val albums = listOf(
-                Album(0, listOf(Photo(0, "photo0", "url", "thumbnailUrl"))),
-                Album(1, listOf(Photo(0, "photo0", "url", "thumbnailUrl")))
+                Album(0, mutableListOf(Photo(0, "photo0", "url", "thumbnailUrl"))),
+                Album(1, mutableListOf(Photo(0, "photo0", "url", "thumbnailUrl")))
         )
         `when`(repository.getAlbums()).thenReturn(albums)
 

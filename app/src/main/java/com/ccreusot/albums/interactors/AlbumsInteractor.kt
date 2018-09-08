@@ -1,6 +1,6 @@
 package com.ccreusot.albums.interactors
 
-import com.ccreusot.albums.presenters.AlbumsPresenter
+import com.ccreusot.albums.presentations.AlbumsPresenter
 import com.ccreusot.albums.repositories.AlbumsRepository
 
 class AlbumsInteractor(private val presenter: AlbumsPresenter,
