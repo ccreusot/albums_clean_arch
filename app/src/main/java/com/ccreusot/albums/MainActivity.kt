@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity(), AlbumsView {
     }
 
     override fun onDestroy() {
+        // We're removing the job since the activity is destroy
         fetchAlbumsJob?.cancel()
         fetchAlbumsJob = null
         decorator.destroy()
