@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Albums</string>
+    <string name="activity_main_error_from_server">"An error happened on our server please retry later"</string>
+    <string name="activity_main_error_empty_list">"You have no album"</string>
 </resources>
