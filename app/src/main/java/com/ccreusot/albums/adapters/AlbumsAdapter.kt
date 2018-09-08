@@ -45,7 +45,7 @@ class AlbumsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         .placeholder(R.drawable.ic_launcher_background)
                         .into(listImageView[i])
             }
-            holder.itemView.viewHolderAlbumPhotoCountTextView.text = "${albumViewModel.getPhotoCount() - thumbnails.size}"
+            holder.itemView.viewHolderAlbumPhotoCountTextView.text = "+ ${albumViewModel.getPhotoCount() - thumbnails.size}"
             holder.itemView.setOnClickListener {
                 this@AlbumsAdapter.onClick?.invoke(position)
             }

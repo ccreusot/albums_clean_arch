@@ -1,3 +1,6 @@
 package com.ccreusot.albums.entities
 
-data class Album(val id: Long, val photos: MutableList<Photo>)
+import com.google.gson.annotations.SerializedName
+
+data class Album(@SerializedName("id") val id: Long,
+                 @SerializedName("photos") val photos: MutableList<Photo>)
