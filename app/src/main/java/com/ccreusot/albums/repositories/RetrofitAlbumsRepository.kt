@@ -1,5 +1,6 @@
 package com.ccreusot.albums.repositories
 
+import android.support.annotation.VisibleForTesting
 import com.ccreusot.albums.entities.Album
 import com.ccreusot.albums.entities.Photo
 import com.google.gson.annotations.SerializedName
@@ -23,22 +24,27 @@ class RetrofitAlbumsRepository : AlbumsRepository {
             val response = service.getPhotos().execute()
             if (response.isSuccessful) {
                 val photos = response.body()
-                val albums : MutableList<Album> = ArrayList()
-                photos?.forEach {
-                    val albumId = it.albumId
-                    var album = albums.firstOrNull { it.id == albumId }
-                    if (album == null) {
-                        album = Album(albumId, ArrayList())
-                        albums.add(album)
-                    }
-                    album.photos.add(Photo(it.id, it.title, it.url, it.thumbnailsUrl))
-                }
-                return albums
+                return transformIntoAlbums(photos)
             }
             throw Exception("code : ${response.code()}  msg: ${response.message()}")
         } catch (e: Exception) {
             throw e
         }
+    }
+
+    @VisibleForTesting
+    internal fun transformIntoAlbums(photos : List<PhotoAlbum>?) : List<Album> {
+        val albums : MutableList<Album> = ArrayList()
+        photos?.forEach {
+            val albumId = it.albumId
+            var album = albums.firstOrNull { it.id == albumId }
+            if (album == null) {
+                album = Album(albumId, ArrayList())
+                albums.add(album)
+            }
+            album.photos.add(Photo(it.id, it.title, it.url, it.thumbnailsUrl))
+        }
+        return albums
     }
 
     data class PhotoAlbum(@SerializedName("albumId") val albumId: Long,
