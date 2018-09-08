@@ -2,7 +2,7 @@ package com.ccreusot.albums.repositories
 
 import com.ccreusot.albums.entities.Album
 
-interface AlbumRepository {
+interface AlbumDetailRepository {
     @Throws(Exception::class)
     fun getAlbum(albumId: Long) : Album
 

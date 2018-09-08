@@ -2,15 +2,15 @@ package com.ccreusot.albums.interactors
 
 import com.ccreusot.albums.entities.Album
 import com.ccreusot.albums.entities.Photo
-import com.ccreusot.albums.presentations.AlbumPresenter
-import com.ccreusot.albums.repositories.AlbumRepository
+import com.ccreusot.albums.presentations.AlbumDetailPresenter
+import com.ccreusot.albums.repositories.AlbumDetailRepository
 import org.junit.Test
 import org.mockito.Mockito.*
 
-class AlbumInteractorTest {
-    val repository = mock(AlbumRepository::class.java)
-    val presenter = mock(AlbumPresenter::class.java)
-    val interactor = AlbumInteractor(presenter, repository)
+class AlbumDetailInteractorTest {
+    val repository = mock(AlbumDetailRepository::class.java)
+    val presenter = mock(AlbumDetailPresenter::class.java)
+    val interactor = AlbumDetailInteractor(presenter, repository)
 
     @Test
     fun test_fetchAlbum_withIdNegative() {

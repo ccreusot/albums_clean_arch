@@ -5,7 +5,7 @@ import com.ccreusot.albums.entities.Photo
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
-class AlbumViewModelTest {
+class AlbumDetailViewModelTest {
 
     @Test
     fun test_getPhotoCount() {
