@@ -15,11 +15,11 @@ class CacheAlbumsRepository(private val context: Context) : AlbumsRepository {
         private const val CACHE_EXPIRATION = 24 * 60 * 60 * 1000 // For 24h of cache
      }
 
-    val retrofitRepository by lazy {
+    private val retrofitRepository by lazy {
         RetrofitAlbumsRepository()
     }
 
-    val gson = Gson()
+    private val gson = Gson()
 
     override fun getAlbums(): List<Album> {
         val sharedPreferences = context.getSharedPreferences(ALBUM_SHARED_PREF_CACHE, Context.MODE_PRIVATE)

@@ -3,18 +3,15 @@ package com.ccreusot.albums
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import com.ccreusot.albums.adapters.AlbumsAdapter
 import com.ccreusot.albums.interactors.AlbumsInteractor
 import com.ccreusot.albums.presentations.AlbumsPresenterImpl
 import com.ccreusot.albums.presentations.AlbumsView
 import com.ccreusot.albums.presentations.AlbumsViewDecorator
 import com.ccreusot.albums.repositories.CacheAlbumsRepository
-import com.ccreusot.albums.repositories.RetrofitAlbumsRepository
 import com.ccreusot.albums.viewmodels.AlbumViewModel
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_layout_list.*
 import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 
 class MainActivity : AppCompatActivity(), AlbumsView {
@@ -31,11 +28,11 @@ class MainActivity : AppCompatActivity(), AlbumsView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_layout_list)
 
-        activityMainContentViewFlipper.displayedChild = DISPLAY_LOADER
-        activityMainAlbumRecyclerView.layoutManager = LinearLayoutManager(this)
-        activityMainAlbumRecyclerView.adapter = AlbumsAdapter()
+        contentViewFlipper.displayedChild = DISPLAY_LOADER
+        itemRecyclerView.layoutManager = LinearLayoutManager(this)
+        itemRecyclerView.adapter = AlbumsAdapter()
 
         fetchAlbumsJob = launch {
             interactor.fetchAlbums()
@@ -51,22 +48,23 @@ class MainActivity : AppCompatActivity(), AlbumsView {
     }
 
     override fun displayAlbumsError() {
-        activityMainContentViewFlipper.displayedChild = DISPLAY_ERROR
-        activityMainErrorTextView.text = getString(R.string.activity_main_error_from_server)
+        contentViewFlipper.displayedChild = DISPLAY_ERROR
+        errorTextView.text = getString(R.string.generic_error_from_server)
     }
 
     override fun displayEmptyAlbumList() {
-        activityMainContentViewFlipper.displayedChild = DISPLAY_ERROR
-        activityMainErrorTextView.text = getString(R.string.activity_main_error_empty_list)
+        contentViewFlipper.displayedChild = DISPLAY_ERROR
+        errorTextView.text = getString(R.string.activity_main_error_empty_list)
     }
 
     override fun displayAlbums(albumViewModels: List<AlbumViewModel>) {
-        activityMainContentViewFlipper.displayedChild = DISPLAY_LIST
-        (activityMainAlbumRecyclerView.adapter as AlbumsAdapter).albumViewModelList = albumViewModels
-        (activityMainAlbumRecyclerView.adapter as AlbumsAdapter).onClick = this::onClickItem
+        contentViewFlipper.displayedChild = DISPLAY_LIST
+        (itemRecyclerView.adapter as AlbumsAdapter).albumViewModelList = albumViewModels
+        (itemRecyclerView.adapter as AlbumsAdapter).onClick = this::onClickItem
     }
 
     fun onClickItem(position : Int) {
-        // TODO
+        val albumId = (itemRecyclerView.adapter as AlbumsAdapter).albumViewModelList?.get(position)?.getId() ?: -1
+        AlbumDetailActivity.startActivity(this, albumId)
     }
 }
