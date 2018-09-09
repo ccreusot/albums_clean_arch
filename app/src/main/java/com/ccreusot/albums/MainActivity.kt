@@ -9,6 +9,7 @@ import com.ccreusot.albums.presentations.AlbumsPresenterImpl
 import com.ccreusot.albums.presentations.AlbumsView
 import com.ccreusot.albums.presentations.AlbumsViewDecorator
 import com.ccreusot.albums.repositories.CacheAlbumsRepository
+import com.ccreusot.albums.repositories.RetrofitAlbumsRepository
 import com.ccreusot.albums.viewmodels.AlbumViewModel
 import kotlinx.android.synthetic.main.activity_layout_list.*
 import kotlinx.coroutines.experimental.Job
@@ -17,7 +18,11 @@ import kotlinx.coroutines.experimental.launch
 class MainActivity : AppCompatActivity(), AlbumsView {
 
     private val decorator = AlbumsViewDecorator(this)
-    private val interactor = AlbumsInteractor(AlbumsPresenterImpl(decorator), CacheAlbumsRepository(this))
+    private val interactor = AlbumsInteractor(
+            AlbumsPresenterImpl(decorator),
+            CacheAlbumsRepository(this, RetrofitAlbumsRepository())
+    )
+
     private var fetchAlbumsJob: Job? = null
 
     companion object {
@@ -63,8 +68,9 @@ class MainActivity : AppCompatActivity(), AlbumsView {
         (itemRecyclerView.adapter as AlbumsAdapter).onClick = this::onClickItem
     }
 
-    fun onClickItem(position : Int) {
-        val albumId = (itemRecyclerView.adapter as AlbumsAdapter).albumViewModelList?.get(position)?.getId() ?: -1
+    fun onClickItem(position: Int) {
+        val albumId = (itemRecyclerView.adapter as AlbumsAdapter).albumViewModelList?.get(position)?.getId()
+                ?: -1
         AlbumDetailActivity.startActivity(this, albumId)
     }
 }
