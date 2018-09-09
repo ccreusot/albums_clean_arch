@@ -72,5 +72,10 @@ class AlbumDetailActivity : AppCompatActivity(), AlbumDetailView {
     override fun displayPhotos(photoViewModelList: List<PhotoViewModel>) {
         contentViewFlipper.displayedChild = DISPLAY_LIST
         (itemRecyclerView.adapter as AlbumDetailAdapter).listPhotoViewModel = photoViewModelList
+        (itemRecyclerView.adapter as AlbumDetailAdapter).onClickPhoto = this::onClick
+    }
+
+    fun onClick(url: String) {
+        PhotoActivity.startActivity(this, url)
     }
 }

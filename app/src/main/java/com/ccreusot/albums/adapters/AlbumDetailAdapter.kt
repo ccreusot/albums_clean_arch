@@ -11,6 +11,8 @@ import kotlinx.android.synthetic.main.viewholder_layout_album_photo.view.*
 
 class AlbumDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    var onClickPhoto : ((url: String) -> Unit)? = null
+
     var listPhotoViewModel : List<PhotoViewModel>? = null
     set(value) {
         field = value
@@ -34,6 +36,10 @@ class AlbumDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     .load(photoViewModel.getThumbnail())
                     .placeholder(R.drawable.ic_launcher_background)
                     .into(holder.itemView.thumbnailPhotoImageView)
+
+            holder.itemView.setOnClickListener {
+                onClickPhoto?.invoke(photoViewModel.getPhotoUrl())
+            }
         }
     }
 
