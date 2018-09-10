@@ -11,6 +11,8 @@ import com.ccreusot.albums.presentations.AlbumDetailPresenterImpl
 import com.ccreusot.albums.presentations.AlbumDetailView
 import com.ccreusot.albums.presentations.AlbumDetailViewDecorator
 import com.ccreusot.albums.repositories.AlbumDetailRepositoryImpl
+import com.ccreusot.albums.repositories.CacheAlbumsRepository
+import com.ccreusot.albums.repositories.RetrofitAlbumsRepository
 import com.ccreusot.albums.viewmodels.PhotoViewModel
 import kotlinx.android.synthetic.main.activity_layout_list.*
 import kotlinx.coroutines.experimental.Job
@@ -33,7 +35,10 @@ class AlbumDetailActivity : AppCompatActivity(), AlbumDetailView {
     }
 
     private val decoractor = AlbumDetailViewDecorator(this)
-    private val interactor = AlbumDetailInteractor(AlbumDetailPresenterImpl(decoractor), AlbumDetailRepositoryImpl(this))
+    private val interactor = AlbumDetailInteractor(
+            AlbumDetailPresenterImpl(decoractor),
+            AlbumDetailRepositoryImpl(CacheAlbumsRepository(this, RetrofitAlbumsRepository()))
+    )
     private var retrieveAlbumJob : Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

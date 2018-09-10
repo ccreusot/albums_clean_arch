@@ -3,9 +3,7 @@ package com.ccreusot.albums.repositories
 import android.content.Context
 import com.ccreusot.albums.entities.Album
 
-class AlbumDetailRepositoryImpl(context: Context) : AlbumDetailRepository {
+class AlbumDetailRepositoryImpl(private val repository : AlbumsRepository) : AlbumDetailRepository {
 
-    private val cashAlbumRepository = CacheAlbumsRepository(context, RetrofitAlbumsRepository())
-
-    override fun getAlbum(albumId: Long): Album = cashAlbumRepository.getAlbums().firstOrNull { it.id == albumId } ?: throw Exception("album doesn't exist.")
+    override fun getAlbum(albumId: Long): Album = repository.getAlbums().firstOrNull { it.id == albumId } ?: throw Exception("album doesn't exist.")
 }
