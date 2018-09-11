@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AlbumDetailActivity" />
-        <activity android:name=".PhotoActivity"></activity>
+        <activity android:name=".PhotoActivity"/>
     </application>
 
 </manifest>
